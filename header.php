@@ -46,8 +46,8 @@
         if($user == NULL){
             echo("<a href=\"login.php\" style=\"float: right;\">Log In</a>");
         }else{
-            echo("<a href=\"customer.php\" style=\"float: right;\">" . $user . "</a>");
             echo("<a href=\"logout.php\" style=\"float: right;\">Log Out</a>");
+            echo("<a href=\"customer.php\" style=\"float: right;\">User: " . $user . "</a>");
         }
         ?>
     </div>

@@ -5,6 +5,11 @@
 </head>
 <body>
     <style>
+        img{
+        max-height:200px;
+        height:auto;
+        width:auto;
+        }
         table, td, th {
             border: 1px solid grey;
         }

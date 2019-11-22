@@ -30,7 +30,7 @@
     </style>
 </head>
 <body>
-
+<center>
 <h1>Search for the products you want to buy:</h1>
 
 <form method="get" action="listprod.php">
@@ -49,10 +49,11 @@
     <input type="text" name="productName" size="50">
     <input type="submit" value="Submit"><input type="reset" value="Reset"> (Leave blank for all products)
 </form>
-
+</center>
+    
 <?php
 	include 'include/db_credentials.php';
-    $name = "";
+    $name = ""; #Set Search Term to empty string ---> List everything
 
 	/** Get product name to search for **/
 	if (isset($_GET['productName'])){
