@@ -56,6 +56,28 @@
 		echo("<tr><td>" . $row['date']->format('d/m/Y') . "</td><td>$" . number_format($row['amount'],2) . "</td></tr>");
     }
     echo("</table>");
+    
+    
+    
+    // List All Customers
+    echo("<br><br><center><u><h1>All Customer Info</u></center></h1>");
+    echo("<center><table><tr><th>First Name</th><th>Last Name</th><th>Customer ID</th><th>Email</th><th>Phone Number</th><th>Address</th><th>City</th><th>State</th><th>Postal Code</th><th>Country</th></tr>");
+    $sql = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country FROM customer";
+    $results = sqlsrv_query($con, $sql, array());
+    while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
+        $first = $row['firstName'];
+        $last = $row['lastName'];
+        $cid = $row['customerId'];
+        $email = $row['email'];
+        $phonenum = $row['phonenum'];
+        $address = $row['address'];
+        $city = $row['city'];
+        $state = $row['state'];
+        $pcode = $row['postalCode'];
+        $country = $row['country'];
+        echo("<tr><td>" . $first . "</td><td>" . $last . "</td><td>" . $cid . "</td><td>" . $email . "</td><td>" . $phonenum . "</td><td>" . $address . "</td><td>" . $city . "</td><td>" . $state . "</td><td>" . $pcode . "</td><td>" . $country . "</td></tr>");
+    }
+    echo("</table></center>");
     sqlsrv_close($con);
 
 ?>

@@ -21,6 +21,13 @@ if(isset($_GET['id']) && isset($_GET['name']) && isset($_GET['price'])){
 // Update quantity if add same item to order again
 if (isset($productList[$id])){
 	$productList[$id]['quantity'] = $productList[$id]['quantity'] + 1;
+    if (isset($_GET['quantity'])){
+        if($_GET['quantity'] == 0){
+            unset($productList[$id]);
+        }else{
+            $productList[$id]['quantity'] = $_GET['quantity'];
+        }
+    }
 } else {
 	$productList[$id] = array( "id"=>$id, "name"=>$name, "price"=>$price, "quantity"=>1 );
 }

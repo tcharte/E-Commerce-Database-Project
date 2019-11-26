@@ -30,15 +30,14 @@ if (isset($_SESSION['productList'])){
 	echo("<h1 align=\"center\">Your Shopping Cart</h1>");
 	echo("<table align=\"center\"><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
 	echo("<th>Price</th><th>Subtotal</th></tr>");
-
+    
 	$total =0;
 	foreach ($productList as $id => $prod) {
 		echo("<tr><td>". $prod['id'] . "</td>");
 		echo("<td>" . $prod['name'] . "</td>");
-
-		echo("<td align=\"center\">". $prod['quantity'] . "</td>");
-		$price = $prod['price'];
-
+		$quantity = $prod['quantity'];
+        $price = $prod['price'];
+        echo("<td><form action=\"addcart.php\"><input type=\"number\" name=\"quantity\"min=\"0\" max=\"999\" value=\"" . $quantity . "\"><input type=\"submit\"><input type='hidden' name='name' value='" . $prod['name'] . "' /><input type='hidden' name='id' value='" . $prod['id'] . "' /><input type='hidden' name='price' value='" . $price . "' /></form></td>");
 		echo("<td align=\"right\">$" . number_format($price ,2) ."</td>");
 		echo("<td align=\"right\">$" . number_format($prod['quantity']*$price, 2) . "</td></tr>");
 		echo("</tr>");

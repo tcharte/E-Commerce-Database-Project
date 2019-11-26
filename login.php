@@ -15,7 +15,7 @@
 
 	if ($authenticated)
 	{
-		$Message = "You have are already logged in.";
+		$Message = "You are already logged in.";
         $_SESSION['LIMessage']  = $Message;        
 		header('Location: index.php');
 	}
