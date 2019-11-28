@@ -12,7 +12,7 @@
 	function validateLogin()
 	{	  
 	    $user = $_POST["username"];	 
-	    $pw = $_POST["password"];
+	    $pw = $_POST["pass"];
 		$retStr = null;
 
 		if ($user == null || $pw == null)

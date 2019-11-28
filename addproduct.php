@@ -8,13 +8,17 @@ if(isset($_POST['productName']) && isset($_POST['productPrice']) && isset($_POST
 	$productDesc = $_POST['productDesc'];
 	$categoryId = $_POST['categoryId'];
     
+    //upload file
+    include 'upload.php';
+    //$filename <- filename
+    
     //Create Connection to database
     $con = sqlsrv_connect($server, $connectionInfo);
     if( $con === false ) {
         die( print_r( sqlsrv_errors(), true));
     }
     //SQL for entering product info:
-    $sql = "INSERT INTO product (productName, productPrice, productDesc, categoryId) OUTPUT INSERTED.productId VALUES ('" . $productName . "', '" . $productPrice . "', '" . $productDesc . "', '" . $categoryId . "')";
+    $sql = "INSERT INTO product (productName, productPrice, productDesc, categoryId, productImageURL) OUTPUT INSERTED.productId VALUES ('" . $productName . "', '" . $productPrice . "', '" . $productDesc . "', '" . $categoryId . "', 'img/" . $filename . "')";
     
     $pstmt = sqlsrv_query($con, $sql, array());
     if(!sqlsrv_fetch($pstmt)){

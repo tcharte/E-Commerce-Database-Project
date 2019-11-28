@@ -9,7 +9,7 @@
     ?>
 <br>
 <h1 style="text-align:center">Customer Sign-up</h1>
-<form action="createcust.php">
+<form action="createcust.php" method="post">
     <table align="center">
         <tr><th>First Name:</th><td><input type="text" name="firstName" maxlength="40" required></td></tr>
         <tr><th>Last Name:</th><td><input type="text" name="lastName" maxlength="40" required></td></tr>
@@ -73,7 +73,7 @@
         <tr><th>Postal Code:</th><td><input type="text" name="postalCode" maxlength="8" required></td></tr>
         <tr><th>Country:</th><td><input type="text" name="country" maxlength="40" required></td></tr>
         <tr><th>Username:</th><td><input type="text" name="userid" maxlength="20" required></td></tr>
-        <tr><th>Password:</th><td><input type="password" name="password" maxlength="30" required></td></tr>
+        <tr><th>Password:</th><td><input type="password" name="pass" maxlength="30" required></td></tr>
     </table>
     <center><input type="submit"></center>
 </form>
