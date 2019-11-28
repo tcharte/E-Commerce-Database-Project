@@ -43,10 +43,10 @@
         <a class="<?php echo ($_SERVER['PHP_SELF'] == "/54151162/lab8/showcart.php" ? "active" : "");?>" href="showcart.php">Shopping Cart</a>
         <a class="<?php echo ($_SERVER['PHP_SELF'] == "/54151162/lab8/listorder.php" ? "active" : "");?>" href="listorder.php">All Orders</a>
         <?php
-        if($user == NULL){
+        if($user == NULL){ // If no user logged in
             echo("<a href=\"login.php\" style=\"float: right;\">Log In</a>");
             echo("<a href=\"signup.php\" style=\"float: right;\">Sign Up</a>");
-        }else{
+        }else{	// if user is logged in
             echo("<a href=\"logout.php\" style=\"float: right;\">Log Out</a>");
             echo("<a href=\"customer.php\" style=\"float: right;\">User: " . $user . "</a>");
         }

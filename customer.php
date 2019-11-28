@@ -65,7 +65,23 @@ if( $con === false ) {
     sqlsrv_close($con);
     
     
-    echo("</br><center><h1>Customer Profile</h1></center></br><table align=\"center\"><tr><th>Name</th><td>" . $first . " " . $last . "</td></tr><tr><th>Customer ID</th><td>" . $cid . "</td></tr><tr><th>Username</th><td>" . $user . "</td></tr></tr><tr><th>Email</th><td>" . $email . "</td></tr><tr><th>Phone Number</th><td>" . $phonenum . "</td></tr><tr><th>Address</th><td>" . $address . "</td></tr><tr><th>City</th><td>" . $city . "</td></tr><tr><th>State</th><td>" . $state . "</td></tr><tr><th>Postal Code</th><td>" . $pcode . "</td></tr><tr><th>Country</th><td>" . $country . "</td></tr></table>");
+    echo("</br>
+		<center>
+			<h1>Customer Profile</h1>
+		</center>
+		</br>
+		<table align=\"center\">
+			<tr><th>Name</th><td>" . $first . " " . $last . "</td></tr>
+			<tr><th>Customer ID</th><td>" . $cid . "</td></tr>
+			<tr><th>Username</th><td>" . $user . "</td></tr></tr>
+			<tr><th>Email</th><td>" . $email . "</td></tr>
+			<tr><th>Phone Number</th><td>" . $phonenum . "</td></tr>
+			<tr><th>Address</th><td>" . $address . "</td></tr>
+			<tr><th>City</th><td>" . $city . "</td></tr>
+			<tr><th>State</th><td>" . $state . "</td></tr>
+			<tr><th>Postal Code</th><td>" . $pcode . "</td></tr>
+			<tr><th>Country</th><td>" . $country . "</td></tr>
+		</table>");
 ?>
 </body>
 </html>
