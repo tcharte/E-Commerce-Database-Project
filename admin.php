@@ -48,12 +48,11 @@
     }
     echo("<h2><center>Welcome " . $first . " " . $last . ".</center></h2>");
     echo("<h1 style='text-align:center'>Administrator Tools:</h1>");
-    echo("<h2 style='text-align:center'><a href='showdb.php'>Show Database</a> - <a href='newproduct.php'>Add New Product</a></h2>");
+    echo("<h2 style='text-align:center'><a href='loaddata.php'>Reset Database</a> - <a href='showdb.php'>Show Database</a> - <a href='newproduct.php'>Add New Product</a></h2>");
     echo("<center><u><h1>Sales Report by Day</u></center></h1>");
     
     
-    //array for ordersummary graph
-    $salesReport = array();
+
 	$sql = "SELECT CAST(orderDate AS DATE) AS date, SUM(totalAmount) AS amount FROM ordersummary GROUP BY CAST(orderDate AS DATE)";
 	$results = sqlsrv_query($con, $sql, array());
 	echo("<table align=\"center\"><tr><th>Order Date</th><th>Total Order Amount</th></tr>");
