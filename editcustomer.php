@@ -35,7 +35,7 @@ if( $con === false ) {
 }
     
 
-    $sql = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country, customerId FROM customer WHERE userid = '" . $user . "'";
+    $sql = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password FROM customer WHERE userid = '" . $user . "'";
     $results = sqlsrv_query($con, $sql, array());
     while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
         $first = $row['firstName'];
@@ -49,6 +49,8 @@ if( $con === false ) {
         $pcode = $row['postalCode'];
         $country = $row['country'];
 		$cid = $row['customerId'];
+		$username = $row['userid'];
+		$pass = $row['password'];
     }
 // Make sure to close connection
     sqlsrv_close($con);
@@ -120,8 +122,8 @@ echo("
 				</select></td></tr>
 			<tr><th>Postal Code:</th><td><input type=\"text\" name=\"postalCode\" maxlength=\"8\" required value=\"" .$pcode. "\"></td></tr>
 			<tr><th>Country:</th><td><input type=\"text\" name=\"country\" maxlength=\"40\" required value=\"" .$country. "\"></td></tr>
-			<tr><th>Username:</th><td><input type=\"text\" name=\"userid\" maxlength=\"20\" required></td></tr>
-			<tr><th>Password:</th><td><input type=\"password\" name=\"pass\" maxlength=\"30\" required></td></tr>
+			<tr><th>Username:</th><td><input type=\"text\" name=\"userid\" maxlength=\"20\" required value=\"" . $username . "\"></td></tr>
+			<tr><th>Password:</th><td><input type=\"password\" name=\"pass\" maxlength=\"30\" required value=\"" . $pass . "\"></td></tr>
 		</table>
 		<input type =\"hidden\" name=\"custId\" value=\"".$cid."\">
 		<center><input type=\"submit\"></center>

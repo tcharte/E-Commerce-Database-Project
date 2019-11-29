@@ -22,24 +22,20 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['emai
     if( $con === false ) {
         die( print_r( sqlsrv_errors(), true));
     }
-    //SQL for entering Customer info:
-	
+    //SQL for Updating Customer info:
     $sql = "UPDATE customer SET firstName = ?, lastName = ?, email = ?, phonenum = ?, address = ?, city = ?, state = ?, postalCode = ?, country = ?, userid = ?, password = ? WHERE customerId = ?";
-	
-	$stmt = sqlsrv_prepare($con, $sql, array(&$firstName, &$lastName, &$email, &$phonenum, &$address, &$city, &$state, &$postalCode, &$country, &$userid, &$pass, &$cid));
-			
-	echo("<script>console.log(\"sql: " . strval($sql) . "\"); </script>");
-	
-    $results = sqlsrv_query($con, $sql, array());
-	//echo("<script>console.log(\"" . strval($results) . "\"); </script>");
+	// insert params into prepared statemnet
+	$params = array(&$firstName, &$lastName, &$email, &$phonenum, &$address, &$city, &$state, &$postalCode, &$country, &$userid, &$pass, &$cid);
+	// exectute statement
+    $results = sqlsrv_query($con, $sql, $params);
     
     //close connection
     sqlsrv_close($con);
     
     //if($results != false){
         //header('Location: validateLogin.php?username=' . urlencode($username) . '&pass=' . urlencode($pass));
-        //echo("<form name=\"myform\" method=\"post\" action=\"validateLogin.php\"><input type=\"hidden\" name=\"username\" value=\"" . $username . "\" /><input type=\"hidden\" name=\"pass\" value=\"" . $pass . "\" /></form><script type=\"text/javascript\">document.myform.submit();</script>");
-   // header('Location: customer.php');
+       //echo("<form name=\"myform\" method=\"post\" action=\"validateLogin.php\"><input type=\"hidden\" name=\"username\" value=\"" . $username . "\" /><input type=\"hidden\" name=\"pass\" value=\"" . $pass . "\" /></form><script type=\"text/javascript\">document.myform.submit();</script>");
+		header('Location: customer.php');
    // }
     
 } else {
