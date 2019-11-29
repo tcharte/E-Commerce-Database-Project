@@ -1,44 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Customer Page</title>
-</head>
+    <head>
+        <title>Customer Info Update</title>
+    </head>
 <body>
-    <style>
-        table, td, th {
-            border: 1px solid grey;
-        }
-        th, td {
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 20px;
-        padding-right: 20px;
-        text-align: left;
-        }
-        th {
-        text-align: left;
-        background-color: steelblue;
-        color: white;
-        }
-		
-    </style>
-
-<?php 
+    <?php
     include 'header.php';
-    include 'include/db_credentials.php';
-?>
-
+    ?>
+<br>
+<h1 style=\"text-align:center\">Edit Info</h1>
 <?php
-	$authenticated = $_SESSION['authenticatedUser']  == null ? false : true;
+include 'include/db_credentials.php';
 
-	if (!$authenticated)
-	{
-		$loginMessage = "You must log in to view this page.";
-        $_SESSION['loginMessage']  = $loginMessage;
-        $_SESSION['redirect']  = "customer.php";
-		header('Location: login.php');
-	}
-    
+/*
+if(isset($_GET['firstName']) && isset($_GET['lastName']) && isset($_GET['email']) && isset($_GET['phonenum']) && isset($_GET['address']) && isset($_GET['city']) && isset($_GET['state']) && isset($_GET['postalCode']) && isset($_GET['country']) && isset($_GET['userid']) && isset($_GET['pass'])){
+	$firstName = $_GET['firstName'];
+	$lastName = $_GET['lastName'];
+	$email = $_GET['email'];
+	$phonenum = $_GET['phonenum'];
+	$address = $_GET['address'];
+	$city = $_GET['city'];
+	$state = $_GET['state'];
+	$postalCode = $_GET['postalCode'];
+	$country = $_GET['country'];
+    $userid = $_GET['userid'];
+	$pass = $_GET['pass'];	
+}
+*/
 $user = $_SESSION['authenticatedUser'];
 
 $con = sqlsrv_connect($server, $connectionInfo);
@@ -46,7 +34,7 @@ if( $con === false ) {
     die( print_r( sqlsrv_errors(), true));
 }
     
-// TODO: Print Customer information
+
     $sql = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country FROM customer WHERE userid = '" . $user . "'";
     $results = sqlsrv_query($con, $sql, array());
     while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
@@ -61,41 +49,22 @@ if( $con === false ) {
         $pcode = $row['postalCode'];
         $country = $row['country'];
     }
-	$customerArr = array($first, $last, $cid, $email, $phonenum, $address, $city, $state, $pcode, $country);
 // Make sure to close connection
     sqlsrv_close($con);
-    
-    
-    echo("</br>
-		<center>
-			<h1>Customer Profile</h1>
-		</center>
-		</br>
-		<table align=\"center\">
-			<tr><th>Name</th><td contenteditable>" . $first . " " . $last . "</td></tr>
-			<tr><th>Customer ID</th><td>" . $cid . "</td></tr>
-			<tr><th>Username</th><td contenteditable>" . $user . "</td></tr></tr>
-			<tr><th>Email</th><td contenteditable>" . $email . "</td></tr>
-			<tr><th>Phone Number</th><td contenteditable>" . $phonenum . "</td></tr>
-			<tr><th>Address</th><td contenteditable>" . $address . "</td></tr>
-			<tr><th>City</th><td contenteditable>" . $city . "</td></tr>
-			<tr><th>State</th><td contenteditable>" . $state . "</td></tr>
-			<tr><th>Postal Code</th><td contenteditable>" . $pcode . "</td></tr>
-			<tr><th>Country</th><td contenteditable>" . $country . "</td></tr>
-		</table>");
-	
-	
-	/*
-	echo("
+
+
+
+
+echo("
 	<form action=\"updatecust.php\" method=\"post\">
 		<table align=\"center\">
-			<tr><th>First Name:</th><td><input type=\"text\" name=\"firstName\" maxlength=\"40\" required value=\"" .$firstName . "\"></td></tr>
-			<tr><th>Last Name:</th><td><input type=\"text\" name=\"lastName\" maxlength=\"40\" required value=\"" . $lastName."></td></tr>
-			<tr><th>Email:</th><td><input type=\"email\" name=\"email\" maxlength=\"50\" required value=\"". $email ."></td></tr>
-			<tr><th>Phone Number:</th><td><input type=\"text\" name=\"phonenum\" maxlength=\"20\" required ></td></tr>
-			<tr><th>Address:</th><td><input type=\"text\" name=\"address\" maxlength=\"50\" required></td></tr>
-			<tr><th>City:</th><td><input type=\"text\" name=\"city\" maxlength=\"40\" required></td></tr>
-			<tr><th>State:</th><td><select name=\"state\" required>
+			<tr><th>First Name:</th><td><input type=\"text\" name=\"firstName\" maxlength=\"40\" required value=\"" . $first . "\"></td></tr>
+			<tr><th>Last Name:</th><td><input type=\"text\" name=\"lastName\" maxlength=\"40\" required value = \"" . $last . "\"></td></tr>
+			<tr><th>Email:</th><td><input type=\"email\" name=\"email\" maxlength=\"50\" required value=\"" .$email. "\"></td></tr>
+			<tr><th>Phone Number:</th><td><input type=\"text\" name=\"phonenum\" maxlength=\"20\" required value=\"" .$phonenum. "\"></td></tr>
+			<tr><th>Address:</th><td><input type=\"text\" name=\"address\" maxlength=\"50\" required value=\"" .$address. "\"></td></tr>
+			<tr><th>City:</th><td><input type=\"text\" name=\"city\" maxlength=\"40\" required value=\"" .$city. "\"></td></tr>
+			<tr><th>State:</th><td><select name=\"state\" required value=\"" .$state. "\">
 		<option value=\"AL\">Alabama</option>
 		<option value=\"AK\">Alaska</option>
 		<option value=\"AZ\">Arizona</option>
@@ -148,42 +117,15 @@ if( $con === false ) {
 		<option value=\"WI\">Wisconsin</option>
 		<option value=\"WY\">Wyoming</option>
 				</select></td></tr>
-			<tr><th>Postal Code:</th><td><input type=\"text\" name=\"postalCode\" maxlength=\"8\" required></td></tr>
-			<tr><th>Country:</th><td><input type=\"text\" name=\"country\" maxlength=\"40\" required></td></tr>
+			<tr><th>Postal Code:</th><td><input type=\"text\" name=\"postalCode\" maxlength=\"8\" required value=\"" .$pcode. "\"></td></tr>
+			<tr><th>Country:</th><td><input type=\"text\" name=\"country\" maxlength=\"40\" required value=\"" .$country. "\"></td></tr>
 			<tr><th>Username:</th><td><input type=\"text\" name=\"userid\" maxlength=\"20\" required></td></tr>
 			<tr><th>Password:</th><td><input type=\"password\" name=\"pass\" maxlength=\"30\" required></td></tr>
 		</table>
 		<center><input type=\"submit\"></center>
 	</form>");
-	*/
-	
-	echo("<center>
-				<a href=\"editcustomer.php\"> Edit Details </a> 	
-		 </center>");
-		 
-/*		
-	 echo("<a href=\"login.php\" style=\"float: right;\">Log In</a>");
-	
-	echo("<center>
-			<input type=\"button\" value=\"Edit Profile\" onclick=\"editcustomer.php\">
-		</center>"); */
-	
-	/*
-	<center>
-		<input type="button" value="Edit Profile" onclick="editcustomer.php">
-	</center>
-	
-	
-	*/
 ?>
-	
+
+    
 </body>
 </html>
-
-
-
-
-
-
-
-
