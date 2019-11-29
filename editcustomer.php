@@ -10,37 +10,23 @@
 <br>
 <h1 style=\"text-align:center\">Edit Info</h1>
 <?php
-include 'include/db_credentials.php';
+	include 'include/db_credentials.php';
 
-/*
-if(isset($_GET['firstName']) && isset($_GET['lastName']) && isset($_GET['email']) && isset($_GET['phonenum']) && isset($_GET['address']) && isset($_GET['city']) && isset($_GET['state']) && isset($_GET['postalCode']) && isset($_GET['country']) && isset($_GET['userid']) && isset($_GET['pass'])){
-	$firstName = $_GET['firstName'];
-	$lastName = $_GET['lastName'];
-	$email = $_GET['email'];
-	$phonenum = $_GET['phonenum'];
-	$address = $_GET['address'];
-	$city = $_GET['city'];
-	$state = $_GET['state'];
-	$postalCode = $_GET['postalCode'];
-	$country = $_GET['country'];
-    $userid = $_GET['userid'];
-	$pass = $_GET['pass'];	
-}
-*/
-$user = $_SESSION['authenticatedUser'];
+	$user = $_SESSION['authenticatedUser'];
 
-$con = sqlsrv_connect($server, $connectionInfo);
-if( $con === false ) {
-    die( print_r( sqlsrv_errors(), true));
-}
-    
+	$cid = $_SESSION['cid'];
 
-    $sql = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password FROM customer WHERE userid = '" . $user . "'";
+	$con = sqlsrv_connect($server, $connectionInfo);
+	if( $con === false ) {
+		die( print_r( sqlsrv_errors(), true));
+	}
+		
+
+    $sql = "SELECT firstName, lastName, email, phonenum, address, city, state, postalCode, country, userid, password FROM customer WHERE customerId = '" . $cid . "'";
     $results = sqlsrv_query($con, $sql, array());
     while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
         $first = $row['firstName'];
         $last = $row['lastName'];
-        $cid = $row['customerId'];
         $email = $row['email'];
         $phonenum = $row['phonenum'];
         $address = $row['address'];
@@ -48,17 +34,17 @@ if( $con === false ) {
         $state = $row['state'];
         $pcode = $row['postalCode'];
         $country = $row['country'];
-		$cid = $row['customerId'];
 		$username = $row['userid'];
 		$pass = $row['password'];
     }
-// Make sure to close connection
+	
+	// Make sure to close connection
     sqlsrv_close($con);
 
 
 
-
-echo("
+	// Shwo table for editing, with pre filled values 
+	echo("
 	<form action=\"updatecust.php\" method=\"post\">
 		<table align=\"center\">
 			<tr><th>First Name:</th><td><input type=\"text\" name=\"firstName\" maxlength=\"40\" required value=\"" . $first . "\"></td></tr>

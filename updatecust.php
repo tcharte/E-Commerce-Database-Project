@@ -1,5 +1,6 @@
 <?php
 include 'include/db_credentials.php';
+session_start();
 
 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['phonenum']) && isset($_POST['address']) && isset($_POST['city']) && isset($_POST['state']) && isset($_POST['postalCode']) && isset($_POST['country']) && isset($_POST['userid']) && isset($_POST['pass'])){
 	$firstName = 	$_POST['firstName'];
@@ -15,8 +16,6 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['emai
 	$pass = 		$_POST['pass'];
     $cid = 			$_POST['custId'];
 	
-	//echo("<script>console.log(\"sql: " . strval($cid ) . " " . strval($firstName). "\"); </script>");
-	
     //Create Connection to database
     $con = sqlsrv_connect($server, $connectionInfo);
     if( $con === false ) {
@@ -28,16 +27,18 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['emai
 	$params = array(&$firstName, &$lastName, &$email, &$phonenum, &$address, &$city, &$state, &$postalCode, &$country, &$userid, &$pass, &$cid);
 	// exectute statement
     $results = sqlsrv_query($con, $sql, $params);
+	
+	
+	echo("<script>console.log(\"userId: " . $userid  . "\"); </script>");
+	$_SESSION['authenticatedUser'] = $userid;
+	
     
     //close connection
     sqlsrv_close($con);
     
-    //if($results != false){
-        //header('Location: validateLogin.php?username=' . urlencode($username) . '&pass=' . urlencode($pass));
-       //echo("<form name=\"myform\" method=\"post\" action=\"validateLogin.php\"><input type=\"hidden\" name=\"username\" value=\"" . $username . "\" /><input type=\"hidden\" name=\"pass\" value=\"" . $pass . "\" /></form><script type=\"text/javascript\">document.myform.submit();</script>");
-		header('Location: customer.php');
-   // }
-    
+    // put user back at their profile page
+	header('Location: customer.php');
+  
 } else {
 	header('Location: editcustomer.php');
 }
