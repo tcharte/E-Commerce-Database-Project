@@ -14,7 +14,6 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['emai
 	$country = $_POST['country'];
     $userid = $_POST['userid'];
 	$pass = $_POST['pass'];
-	$customerId = $_POST['customerId'];
     
     //Create Connection to database
     $con = sqlsrv_connect($server, $connectionInfo);
