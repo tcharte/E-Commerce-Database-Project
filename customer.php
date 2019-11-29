@@ -40,6 +40,7 @@
 	}
     
 $user = $_SESSION['authenticatedUser'];
+$custId = $_SESSION['customerId'];
 
 $con = sqlsrv_connect($server, $connectionInfo);
 if( $con === false ) {
