@@ -35,7 +35,7 @@ if( $con === false ) {
 }
     
 
-    $sql = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country FROM customer WHERE userid = '" . $user . "'";
+    $sql = "SELECT customerId, firstName, lastName, email, phonenum, address, city, state, postalCode, country, customerId FROM customer WHERE userid = '" . $user . "'";
     $results = sqlsrv_query($con, $sql, array());
     while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
         $first = $row['firstName'];
@@ -48,6 +48,7 @@ if( $con === false ) {
         $state = $row['state'];
         $pcode = $row['postalCode'];
         $country = $row['country'];
+		$cid = $row['customerId'];
     }
 // Make sure to close connection
     sqlsrv_close($con);
@@ -122,7 +123,9 @@ echo("
 			<tr><th>Username:</th><td><input type=\"text\" name=\"userid\" maxlength=\"20\" required></td></tr>
 			<tr><th>Password:</th><td><input type=\"password\" name=\"pass\" maxlength=\"30\" required></td></tr>
 		</table>
+		<input type =\"hidden\" name=\"custId\" value=\"".$cid."\">
 		<center><input type=\"submit\"></center>
+		
 	</form>");
 ?>
 
