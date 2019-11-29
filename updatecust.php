@@ -37,7 +37,7 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['emai
     sqlsrv_close($con);
     
     // put user back at their profile page
-	header('Location: customer.php');
+	header('Location: customer.php?edited=true');
   
 } else {
 	header('Location: editcustomer.php');

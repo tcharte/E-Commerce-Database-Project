@@ -29,6 +29,13 @@
 ?>
 
 <?php
+	
+	if(isset($_GET['edited']))
+		$detailsEdit = $_GET['edited'];
+	else 
+		$detailsEdit = false;
+	
+	
 	$authenticated = $_SESSION['authenticatedUser']  == null ? false : true;
 
 	if (!$authenticated)
@@ -73,7 +80,16 @@ if( $con === false ) {
 		<center>
 			<h1>Customer Profile</h1>
 		</center>
-		</br>
+		</br>");
+	if($detailsEdit == true){
+	echo("	<center>
+				<h4> Details successfully changed</h4>
+			<center>
+			</br>");
+	}
+		
+		
+	echo("	
 		<table align=\"center\">
 			<tr><th>Name</th><td contenteditable>" . $first . " " . $last . "</td></tr>
 			<tr><th>Customer ID</th><td>" . $cid . "</td></tr>
