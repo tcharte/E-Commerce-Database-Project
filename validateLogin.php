@@ -24,11 +24,12 @@
 		$con = sqlsrv_connect($server, $connectionInfo);
 		
 		// TODO: Check if userId and password match some customer account. If so, set retStr to be the username.
-		$sql = "Select userid, password FROM customer";
+		$sql = "Select userid, customerId password FROM customer";
         $results = sqlsrv_query($con, $sql, array());
         while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
             $uid = $row['userid'];
             $pas = $row['password'];
+            $custid = $row['customerId'];
         }
         
         if($user == $uid && $pw == $pas){
@@ -43,6 +44,7 @@
 		if ($retStr != null)
 		{	$_SESSION["loginMessage"] = null;
 	       	$_SESSION["authenticatedUser"] = $user;
+            $_SESSION["customerId"] = $custid; 
 		}
 		else
 		    $_SESSION["loginMessage"] = "Could not connect to the system using that username/password.";
