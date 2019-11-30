@@ -12,7 +12,7 @@
 	function validateLogin()
 	{	  
 	    $user = $_POST["username"];	 
-	    $pw = $_POST["pass"];
+	    $pw = $_POST["loginpassword"];
 		$retStr = null;
 
 		if ($user == null || $pw == null)
@@ -24,7 +24,7 @@
 		$con = sqlsrv_connect($server, $connectionInfo);
 		
 		// TODO: Check if userId and password match some customer account. If so, set retStr to be the username.
-		$sql = "Select userid, password, customerId FROM customer";
+		$sql = "Select userid, password, customerId FROM customer WHERE userId = '" . $user . "'";
         $results = sqlsrv_query($con, $sql, array());
         while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
             $uid = $row['userid'];
