@@ -23,13 +23,24 @@
         th {
         padding-top: 12px;
         padding-bottom: 12px;
-        text-align: left;
+        text-align: center;
         background-color: steelblue;
         color: white;
         }
     </style>
 </head>
 <body>
+<?php 
+    //show recommended products:
+    include 'recommended.php';
+    echo('<br/><table><tr><th colspan="999">Recommended Products:</th></tr><tr>');
+    foreach ($recprod as $key => $value) {
+        echo("<td><a href = \"product.php?id=" . urlencode($key) . "&name=" . urlencode($value[0]) . "&price=" . urlencode($value[1]) . "\">" . $value[0] . "</a><td>");
+    }
+    echo('</tr></table>');
+
+?>
+    
 <center>
 <h1>Search for the products you want to buy:</h1>
 
@@ -67,13 +78,15 @@
 
 	/** $name now contains the search string the user entered
 	 Use it to build a query and print out the results. **/
-
-	/** Create and validate connection **/
     
+    
+	/** Create and validate connection **/
 	$con = sqlsrv_connect($server, $connectionInfo);
 	if( $con === false ) {
 		die( print_r( sqlsrv_errors(), true));
 	}
+    
+    
     if($name === "") {
         echo("<h2 align =\"center\">All Products:</h2>");
     }else{
