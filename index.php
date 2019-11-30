@@ -5,6 +5,11 @@
 </head>
 <body>
     <style>
+        img{
+        max-height:50px;
+        height:auto;
+        width:auto;
+        }
         table {
             text-align: center;
             border-collapse: collapse;
@@ -66,7 +71,7 @@
     // Show dynamic products based on sales
     // Select top 3 products to display
     
-    $sql = "SELECT TOP 3 product.productId, product.productName, product.productPrice, SUM(orderproduct.quantity) AS numSold FROM orderproduct JOIN product on orderproduct.productId = product.productId GROUP BY product.productId, product.productName, product.productPrice Order BY numSold DESC";
+    $sql = "SELECT TOP 3 product.productId, product.productName, product.productPrice, product.productImageURL, SUM(orderproduct.quantity) AS numSold FROM orderproduct JOIN product on orderproduct.productId = product.productId GROUP BY product.productId, product.productName, product.productPrice, product.productImageURL Order BY numSold DESC";
     
     echo("</br><table align = \"center\"><tr><th colspan=\"3\">Top Products</th></tr><tr>");
     $results = sqlsrv_query($con, $sql, array());
@@ -75,11 +80,18 @@
         $numSold = $row['numSold'];
         $pname = $row['productName'];
         $price = $row['productPrice'];
-        echo("<td><a href = \"product.php?id=" . urlencode($id) . "&name=" . urlencode($pname) . "&price=" . urlencode($price) . "\">" . $pname . "</a>  $" . number_format($price, 2) . "</td>");
+        $imgurl = $row['productImageURL'];
+        echo("<td><img src=\"" . $imgurl . "\"><br><a href = \"product.php?id=" . urlencode($id) . "&name=" . urlencode($pname) . "&price=" . urlencode($price) . "\">" . $pname . "</a>  $" . number_format($price, 2) . "</td>");
     }
     echo("</tr></table>");
     sqlsrv_close($con);
-    
+    //show recommended products:
+    include 'recommended.php';
+    echo('<br/><table><tr><th colspan="999">Recommended Products:</th></tr><tr>');
+    foreach ($recprod as $key => $value) {
+        echo("<td><img src=\"" . $value[2] . "\"><br><a href = \"product.php?id=" . urlencode($key) . "&name=" . urlencode($value[0]) . "&price=" . urlencode($value[1]) . "\">" . $value[0] . "</a><td>");
+    }
+    echo('</tr></table>');
     
 ?>
 </body>

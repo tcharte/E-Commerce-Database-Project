@@ -63,9 +63,10 @@ echo("</br><center>");
 if($imgurl != NULL){
     echo("<img src=\"" . $imgurl . "\">");
 }
-if($image != NULL){
-    echo("<img src=\"displayImage.php?id=" . $id . "\"/>");
-}
+// Removed as no products use images stored in db..
+//    if($image != NULL){
+//    echo("<img src=\"displayImage.php?id=" . $id . "\"/>");
+//}
 echo("</center>");
 echo("</br><table align=\"center\"><tr><th>Product Name</th><td>" . $name . "</td></tr><tr><th>Product Id</th><td>" . $id . "</td></tr><tr><th>Price</th><td>" . $pprice . "</td></tr><tr><th>Product Description</th><td>" . $desc . "</td></tr></table>");
 echo("</br><h2 align=\"center\"><a href = \"addcart.php?id=" . urlencode($id) . "&name=" . urlencode($name) . "&price=" . urlencode($price) . "\">Add to Cart</a></h2><h2 align=\"center\"><a href=\"listprod.php\">Continue Shopping</a></h2>");
