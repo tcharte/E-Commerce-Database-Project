@@ -23,14 +23,14 @@
         $recprod[$rid] = array($rname, $rprice);
     }
     //extract user's favourite category:
-                $sql = "SELECT TOP 1 product.categoryId, SUM(orderproduct.quantity) AS numSold FROM orderproduct JOIN product on orderproduct.productId = product.productId JOIN ordersummary ON ordersummary.orderId = orderproduct.orderId JOIN customer ON customer.customerId = ordersummary.customerId WHERE customer.customerId = '" . $_SESSION['cid'] . "' GROUP BY product.productId, product.productName, product.productPrice Order BY numSold DESC";
+                $sql = "SELECT TOP 1 product.categoryId, SUM(orderproduct.quantity) AS numSold FROM orderproduct JOIN product on orderproduct.productId = product.productId JOIN ordersummary ON ordersummary.orderId = orderproduct.orderId JOIN customer ON customer.customerId = ordersummary.customerId WHERE customer.customerId = '" . $_SESSION['cid'] . "' GROUP BY product.categoryId Order BY numSold DESC";
         
     $results = sqlsrv_query($con, $sql, array());
     while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
         $favcat = $row['categoryId'];
     }
         //add favourite category products to reccomended list
-                $sql = "SELECT product.productId, product.productName, product.productPrice, FROM product WHERE categoryId = '" . $favcat . "'";
+                $sql = "SELECT productId, productName, productPrice FROM product WHERE categoryId = '" . $favcat . "'";
         
     $results = sqlsrv_query($con, $sql, array());
     while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {

@@ -18,12 +18,11 @@
         }
         th, td {
         padding: 15px;
-        text-align: left;
+        text-align: center;
         }
         th {
         padding-top: 12px;
         padding-bottom: 12px;
-        text-align: center;
         background-color: steelblue;
         color: white;
         }
