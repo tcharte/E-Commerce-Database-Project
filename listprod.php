@@ -9,6 +9,11 @@
     ?>
     
     <style>
+        img{
+        max-height:50px;
+        height:auto;
+        width:auto;
+        }
         table {
             border-collapse: collapse;
             width: 100%;
@@ -34,7 +39,7 @@
     include 'recommended.php';
     echo('<br/><table><tr><th colspan="999">Recommended Products:</th></tr><tr>');
     foreach ($recprod as $key => $value) {
-        echo("<td><a href = \"product.php?id=" . urlencode($key) . "&name=" . urlencode($value[0]) . "&price=" . urlencode($value[1]) . "\">" . $value[0] . "</a><td>");
+        echo("<td><img src=\"" . $value[2] . "\"><br><a href = \"product.php?id=" . urlencode($key) . "&name=" . urlencode($value[0]) . "&price=" . urlencode($value[1]) . "\">" . $value[0] . "</a><td>");
     }
     echo('</tr></table>');
 
@@ -94,18 +99,19 @@
     
 	/** Print out the ResultSet **/
     
-    $sql = "SELECT productId, categoryName, productName, productPrice FROM product JOIN category ON category.categoryId = product.categoryId WHERE productName like '%" . $name . "%'";
+    $sql = "SELECT productId, categoryName, productName, productImageURL, productPrice FROM product JOIN category ON category.categoryId = product.categoryId WHERE productName like '%" . $name . "%'";
     if($category != "All"){
         $sql = $sql . "AND categoryName = '" . $category . "'";
     }
 	$results = sqlsrv_query($con, $sql, array());
-	echo("<table><tr><th></th><th>Category</th><th>Product Name</th><th>Price</th></tr>");
+	echo("<table><tr><th></th><th></th><th>Category</th><th>Product Name</th><th>Price</th></tr>");
 	while ($row = sqlsrv_fetch_array( $results, SQLSRV_FETCH_ASSOC)) {
         $pid = $row['productId'];
         $pname = $row['productName'];
         $pprice = $row['productPrice'];
         $cat = $row['categoryName'];
-		echo("<tr><td><a href = \"addcart.php?id=" . urlencode($pid) . "&name=" . urlencode($pname) . "&price=" . urlencode($pprice) . "\">Add to Cart</a></td><td>" . $cat . "</td><td><a href = \"product.php?id=" . urlencode($pid) . "&name=" . urlencode($pname) . "&price=" . urlencode($pprice) . "\">" . $pname . "</a></td><td>$" . number_format($pprice,2) . "</td></tr>");
+        $imgurl = $row['productImageURL'];
+		echo("<tr><td><img src=\"" . $imgurl . "\"></td><td><a href = \"addcart.php?id=" . urlencode($pid) . "&name=" . urlencode($pname) . "&price=" . urlencode($pprice) . "\">Add to Cart</a></td><td>" . $cat . "</td><td><a href = \"product.php?id=" . urlencode($pid) . "&name=" . urlencode($pname) . "&price=" . urlencode($pprice) . "\">" . $pname . "</a></td><td>$" . number_format($pprice,2) . "</td></tr>");
 	}
 	echo("</table>");
     
